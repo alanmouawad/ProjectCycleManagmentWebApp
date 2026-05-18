@@ -12,12 +12,19 @@ ________________________________________
 The platform implements a highly decoupled Service-Oriented Architecture (SOA) combined with domain separation principles:
 
 [ Presentation Layer (ASP.NET Core MVC / Razor Views) ]
+
                            │
+                           
                            ▼
+                           
  [ Business Logic Layer (Contracts & Bus Implementations) ] (e.g., IAgentBus, ICycleBus)
+ 
                            │
+                           
                            ▼
+                           
  [ Infrastructure / Data Access Layer (EF Core + SQL Server) ]
+ 
  
 •	Separation of Concerns: Controllers act strictly as thin entry-point orchestrators. All underlying business rules, validation loops, and data flow decisions are delegated through constructor Dependency Injection to a dedicated service layer utilizing a Bus naming convention (e.g., IAgentBus, ICycleBus, IFormQuestionBus, IUserBus, IRoleBus).
 •	Advanced URL Cryptography Security: To protect highly sensitive field records and prevent horizontal privilege escalation or enumeration attacks, public route query strings (such as ProjectId) are fully encrypted via an AesCryptoServiceProvider implementing custom 32-byte secret key matrices.
