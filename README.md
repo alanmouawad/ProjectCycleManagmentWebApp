@@ -1,10 +1,16 @@
 Project Management System (PMS)
+
 📌 Overview
+
 PMS is an enterprise-grade, compliance-driven web application built on ASP.NET Core 5.0 MVC. The platform is purposefully architected to orchestrate, track, and evaluate multi-sector humanitarian interventions, protection cases, field vulnerability assessments, and medical response pipelines.
+
 Designed specifically for Non-Governmental Organizations (NGOs) and humanitarian actors, the system securely manages detailed beneficiary demographics, structures educational and community implementations into programmatic cycles, handles cross-departmental referrals, ensures donor accountability, and processes real-time crisis diagnostic surveys.
+
 ________________________________________
 🏗️ Architectural Core & Design Patterns
+
 The platform implements a highly decoupled Service-Oriented Architecture (SOA) combined with domain separation principles:
+
 [ Presentation Layer (ASP.NET Core MVC / Razor Views) ]
                            │
                            ▼
@@ -12,12 +18,16 @@ The platform implements a highly decoupled Service-Oriented Architecture (SOA) c
                            │
                            ▼
  [ Infrastructure / Data Access Layer (EF Core + SQL Server) ]
+ 
 •	Separation of Concerns: Controllers act strictly as thin entry-point orchestrators. All underlying business rules, validation loops, and data flow decisions are delegated through constructor Dependency Injection to a dedicated service layer utilizing a Bus naming convention (e.g., IAgentBus, ICycleBus, IFormQuestionBus, IUserBus, IRoleBus).
 •	Advanced URL Cryptography Security: To protect highly sensitive field records and prevent horizontal privilege escalation or enumeration attacks, public route query strings (such as ProjectId) are fully encrypted via an AesCryptoServiceProvider implementing custom 32-byte secret key matrices.
 •	Granular Access Control (RBAC & CBAC): Built on Microsoft Identity infrastructure. Administrative, financial, and policy tools are structurally isolated using custom claims and role-based filters (e.g., [Authorize(Roles = "SuperAdmin")] or [Authorize(Roles = "Admin,Finance")]).
 •	Dynamic Linq Expressions: Integrates runtime dynamic expression parsing (System.Linq.Dynamic.Core) across heavy reporting views to enable fluid, asynchronous server-side sorting, pagination, and multi-variable table filtering.
+
 ________________________________________
+
 🛠️ System Modules & Domain Capabilities
+
 1. Advanced Beneficiary & Household Lifecycle Management
 •	Socio-Demographic Profiling: Tracks comprehensive attributes of individuals, including legal documentation status, military/civil registry standing, housing/shelter classifications, and educational backgrounds.
 •	Family Unit Framework: Maps individuals into structural households, programmatically distinguishing a primary head of household ("Agent") from dependents or children.
@@ -41,8 +51,11 @@ $$\text{Governorate (Gov)} \longrightarrow \text{District} \longrightarrow \text
 •	Validates provider invoices and links financial disbursements to authorized networks of external clinics or suppliers matching the caseworker's regional security scope.
 7. Asynchronous Mass Ingestion Pipeline
 •	Leverages high-performance Excel parsing via EPPlus integrations. The ingestion pipeline reads heavy tabular worksheets, validates layout headers, and maps row arrays asynchronously to process bulk imports directly into the database, mitigating manual user data entry.
+
 ________________________________________
+
 💻 Tech Stack
+
 •	Backend Framework: ASP.NET Core 5.0 (Model-View-Controller Architecture)
 •	Identity & Security: Microsoft ASP.NET Core Identity, AES-256 Symmetric Cryptography Engine
 •	Data Access Layer: Entity Framework Core (EF Core) via ApplicationDbContext, LINQ Dynamic Query Execution
